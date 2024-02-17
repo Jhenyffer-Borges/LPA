@@ -1,3 +1,5 @@
+pedido = []
+
 # FUNÇÃO PARA IMPRIMIR O MENU
 def imprimir_menu():
     print('BEM-VINDO(A) À LOJA DE SORVETES DA JHENYFFER BORGES')
@@ -48,26 +50,56 @@ def calcular_valor(opcao, tamanho):
 
     return sabor, tamanho_descricao, valor_base
 
+# PERGUNTA SE DESEJA MAIS ALGUMA COISA
+def obter_adicional():
+    while True:
+        adicional = input("Deseja adicionar mais alguma coisa?\n 1 - SIM \n 2 - NÃO \n ")
+        if adicional == '1':
+            return True
+        elif adicional == '2':
+            return False
+        else:
+            print('Opção inválida. Tente novamente.')
+
 if __name__ == "__main__":
-    # IMPRIME O MENU
-    imprimir_menu()
+    while True:
+        # IMPRIME O MENU
+        imprimir_menu()
 
-    # OBTÉM O SABOR ESCOLHIDO
-    opcao = obter_sabor()
+        # OBTÉM O SABOR ESCOLHIDO
+        opcao = obter_sabor()
 
-    # OBTÉM O TAMANHO ESCOLHIDO
-    tamanho = obter_tamanho(opcao)
+        # OBTÉM O TAMANHO ESCOLHIDO
+        tamanho = obter_tamanho(opcao)
 
-    # CALCULA O VALOR FINAL
-    sabor, tamanho_descricao, valor_final = calcular_valor(opcao, tamanho)
+        # CALCULA O VALOR FINAL
+        sabor, tamanho_descricao, valor_final = calcular_valor(opcao, tamanho)
 
-    # IMPRIME O RESUMO DO PEDIDO
-    if sabor is not None and tamanho_descricao is not None and valor_final is not None:
-        print("\nRESUMO DO PEDIDO:")
+        # PERGUNTA SE DESEJA ADICIONAR MAIS ALGO
+        adicional = obter_adicional()
+
+        # ARMAZENA AS INFORMAÇÕES DO PEDIDO
+        pedido_atual = {
+            'Sabor': sabor,
+            'Tamanho': tamanho_descricao,
+            'Valor': valor_final
+        }
+        pedido.append(pedido_atual)
+
+        if not adicional:
+            break  # Sair do loop se o usuário não quiser mais adicionar itens
+
+    # IMPRIME O RESUMO GERAL DOS PEDIDOS
+    print("\nRESUMO GERAL DOS PEDIDOS:")
+    print("=" * 30)
+    total_valor = 0  
+    for idx, pedido_atual in enumerate(pedido, start=1):
+        print(f"Pedido {idx}:")
+        print("{:<20} {:<30} {:<20}".format("Sabor:", pedido_atual['Sabor'], ""))
+        print("{:<20} {:<30} {:<20}".format("Tamanho:", pedido_atual['Tamanho'], ""))
+        print("{:<20} {:<30} {:<20}".format("Valor:", "R$ {:.2f}".format(pedido_atual['Valor']), ""))
         print("=" * 30)
-        print("{:<20} {:<30} {:<20}".format("Sabor:", sabor, ""))
-        print("{:<20} {:<30} {:<20}".format("Tamanho:", tamanho_descricao, ""))
-        print("{:<20} {:<30} {:<20}".format("Valor:", "R$ {:.2f}".format(valor_final), ""))
-        print("=" * 30)
-    else:
-        print("Opção inválida. Por favor, escolha um sabor e tamanho válidos.")
+        total_valor += pedido_atual['Valor']  
+
+    if len(pedido) > 1:  
+        print("\nVALOR TOTAL DOS PEDIDOS: R$ {:.2f}".format(total_valor))

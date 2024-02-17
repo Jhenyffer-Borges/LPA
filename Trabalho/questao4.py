@@ -4,12 +4,12 @@ contador_id = 1
 # INICIANDO LISTA PARA ARMAZENAR LIVROS
 livros = []
 
+# VARIÁVEL PARA CONTROLAR SE A MENSAGEM DE BOAS-VINDAS JÁ FOI EXIBIDA
+boas_vindas_exibida = False
+
 # IMPRIMINDO MENU
 def imprimir_menu():
     print(
-        '\n\n\n'
-        'Bem Vindo(a) ao Controle de Livros da Jhenyffer Borges\n'
-        '\n'
         '******************************************\n'
         '--------------Menu Principal------------\n'
         '\n'
@@ -36,11 +36,12 @@ def cadastrar_livro():
     }
 
     livros.append(livro)
-    contador_id += 1
+    
     print('*******************************************\n')
     print(f"Livro numero {contador_id} cadastrado com sucesso!\n\n Nome -> {nome_livro}\n Autor -> {nome_autor}\n Editora -> {nome_editora}.\n\n Continue navegando!!\n")
     print('*******************************************\n')
-
+    contador_id += 1
+    
 #FUNÇÃO PARA CONSULTAR TODOS OS LIVROS
 def consultar_todos():
     for livro in livros:
@@ -105,7 +106,16 @@ def remover_livro():
 
 # LOOP PRINCIPAL
 while True:
+    
+    if not boas_vindas_exibida:
+        print(
+            '\n\n\n'
+            'Bem Vindo(a) ao Controle de Livros da Jhenyffer Borges\n'
+        )
+        boas_vindas_exibida = True 
+
     imprimir_menu()
+    
     opcao = input("Digite a opção desejada: ")
 
     if opcao == '1':

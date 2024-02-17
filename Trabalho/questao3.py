@@ -1,7 +1,7 @@
 #CRIANDO O MENU
 def imprimir_menu():
     print(
-        'Bem Vindo(a) a Loja de Informática da Jhenyffer Borges\n'
+        '\n\nBem Vindo(a) a Loja de Informática da Jhenyffer Borges\n'
         '\n'
         '---Serviços---\n'
         '\n'
@@ -24,18 +24,18 @@ valores = {
 # INPUT DE SELEÇÃO DE SERVIÇO DESEJADO
 def obter_servico():
     while True:
-        opcao = input("Escolha o serviço desejado (DIG/ICO/IPB/FOT): ").upper()
+        opcao = input("Escolha o serviço desejado (DIG/ICO/IPB/FOT):").upper()
         if opcao in valores:
             return opcao
         else:
-            print('Serviço inválido. Entre com o tipo de serviço desejado novamente.')
+            print('\n\nServiço inválido. Entre com o tipo de serviço desejado novamente.\n\n')
 
 # INPUT PARA O CLIENTE ESCOLHER O NUMERO DE PAGINAS
 servico_escolhido = obter_servico()
 
 def obter_quantidade():
     while True:
-        quantidade = int(input("Digite o numero de paginas): "))
+        quantidade = int(input("\n\nDigite o numero de paginas): "))
         if quantidade < 10:
             return quantidade, 0  # Sem desconto
         elif 10 <= quantidade < 100:
@@ -45,7 +45,7 @@ def obter_quantidade():
         elif 1000 <= quantidade < 10000:
             return int(quantidade * 0.8), 20  # Desconto de 20%
         else:
-            print('Não aceitamos pedidos com mais de 10000 páginas. Por favor, escolha um número menor de páginas.')
+            print('Não aceitamos pedidos com mais de 10000 páginas. Por favor, escolha um número menor de páginas.\n')
 
 
 quantidade, desconto = obter_quantidade()
@@ -54,11 +54,11 @@ quantidade, desconto = obter_quantidade()
 
 def obter_adicional():
     while True:
-        adicional = input("Deseja adicionar mais algum serviço?\n 1 - Encadernação simples - R$ 10.00 \n 2 - Encadernação Capa Dura - R$ 25.00 \n 0 - Não desejo mais nada: ")
+        adicional = input("\n\nDeseja adicionar mais algum serviço?\n 1 - Encadernação simples - R$ 10.00 \n 2 - Encadernação Capa Dura - R$ 25.00 \n 0 - Não desejo mais nada:\n\n ")
         if adicional in ['1', '2', '0']:
             return adicional
         else:
-            print('Valor inválido. Tente novamente.')
+            print('\nValor inválido. Tente novamente.\n')
 
 adicional = obter_adicional()
 
@@ -75,6 +75,6 @@ valor_final = valor_original - (valor_original * desconto / 100)
 
 # IMPRIME ESCOLHAS DO CLIENTE
 print(f"Você escolheu o serviço: {servico_escolhido} com o valor original de R${valor_original:.2f} para {quantidade} páginas.")
-print(f"Desconto aplicado: {desconto}%")
-print(f"Serviço adicional escolhido: {adicional} - Valor: R${valores_adicionais[adicional]:.2f}")
-print(f"Valor final com desconto: R${valor_final:.2f}")
+print(f"Desconto aplicado: {desconto}%\n")
+print(f"Serviço adicional escolhido\n: {adicional} - Valor: R${valores_adicionais[adicional]:.2f}")
+print(f"\nValor final com desconto: R${valor_final:.2f}\n")
